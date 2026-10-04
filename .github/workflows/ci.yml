@@ -34,10 +34,23 @@ jobs:
       - name: Récupérer le code
         uses: actions/checkout@v4
 
+      - name: Connexion à Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
       - name: Construire l'image Docker
         run: |
-          docker build -t mon-projet-python:latest .
+          docker build \
+            -t ${{ secrets.DOCKERHUB_USERNAME }}/mon-projet-python:latest .
 
       - name: Tester le conteneur Docker
         run: |
-          docker run --rm mon-projet-python:latest
+          docker run --rm \
+            ${{ secrets.DOCKERHUB_USERNAME }}/mon-projet-python:latest
+
+      - name: Publier sur Docker Hub
+        run: |
+          docker push \
+            ${{ secrets.DOCKERHUB_USERNAME }}/mon-projet-python:latest
