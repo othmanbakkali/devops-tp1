@@ -70,7 +70,7 @@ jobs:
         run: |
           docker stop mon-projet-python || true
           docker rm mon-projet-python || true
-
+          
       - name: Publier sur Docker Hub
         run: |
           docker push \
