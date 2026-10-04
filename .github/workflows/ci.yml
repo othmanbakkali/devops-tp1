@@ -5,6 +5,7 @@ on:
   pull_request:
 
 jobs:
+
   test:
     runs-on: ubuntu-latest
 
@@ -30,7 +31,7 @@ jobs:
     needs: test
 
     steps:
-      # - name: Récupérer le code
+      - name: Récupérer le code
         uses: actions/checkout@v4
 
       - name: Construire l'image Docker
